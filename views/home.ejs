@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Expenses Details !</title>
+    </head>
+    <link rel="stylesheet" href="/css/home.css">
+    <body>
+        <nav class="navbar">
+            <div class="header" style="color: white;">
+               Your Expenses
+            </div>
+            <div>
+                <form action="/create-detail" method="POST">
+                    <input type="text" placeholder="Description" required name="desc">
+                    <input type="'text" placeholder="Amount (₹)" required name="amount">
+                    <button type="submit" >Add</button>
+                    <button type="reset" >Reset</button>
+                </form>
+            </div>
+        </nav>
+        <div class="table-body">
+            <table>
+                <tr>
+                    <th style="width:min-content ;">Sn No.</th>
+                    <th style="width:300px ;">Description</th>
+                    <th  style="width:120px ;">Date</th>
+                    <th  style="width:150px ;">Amount</th>
+                </tr>
+                <% let totalAmount=0 ; let sn=0; %>
+                <% for (let  i of expenses_details) {  totalAmount+=Number(i.amount ); sn++;%>
+                    <tr>
+                        <td style="text-align:center ;" ><%= sn %></td>
+                        <td><%= i.desc %></td>
+                        <td style="text-align:center ;"><%= i.date %></td>
+                        <td style="text-align:end ;">₹ <%= i.amount %></td>
+                        <td style="width:min-content;">
+                            <a href="/delete-detail/?id=<%= i._id %>" style="text-decoration: none; color:red;"> X </a>
+                        </td>
+                    </tr>
+                <%}%>
+                <tr class="total-row">
+                    <td colspan="3" >Total Expenses :</td>
+                    <td style="text-align:end ;">
+                        ₹ <%= totalAmount%> 
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
